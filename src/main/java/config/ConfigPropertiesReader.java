@@ -15,7 +15,8 @@ public enum ConfigPropertiesReader {
 
     private Properties properties;
 
-    public final String appiumServer;
+    public final String appiumServerHost;
+    public final int appiumServerPort;
     public final String app;
     public final String appPackage;
     public final String appActivity;
@@ -45,7 +46,8 @@ public enum ConfigPropertiesReader {
 
     ConfigPropertiesReader() {
         loadProperties();
-        appiumServer = readProperty("appiumServer");
+        appiumServerHost = readProperty("appiumServerHost");
+        appiumServerPort = Integer.parseInt(readProperty("appiumServerPort"));
         app = readProperty("app");
         appPackage = readProperty("appPackage");
         appActivity = readProperty("appActivity");

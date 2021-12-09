@@ -17,7 +17,7 @@ public class MobileDriver implements Driver {
     }
 
     private AppiumDriver<MobileElement> createMobileDriver(String platform) {
-        URL appiumServerUrl = getAppiumServer(Properties.CONFIG_PROPERTIES_READER.appiumServer+"/wd/hub");
+        URL appiumServerUrl = getAppiumServer("http://"+Properties.CONFIG_PROPERTIES_READER.appiumServerHost+":"+Properties.CONFIG_PROPERTIES_READER.appiumServerPort+"/wd/hub");
         return platform.equals("Android") ? new AndroidDriver<MobileElement>(appiumServerUrl, getAndroidCapabilities()) :
                                             new IOSDriver<MobileElement>(appiumServerUrl, getIOSDesiredCapabilities());
     }
