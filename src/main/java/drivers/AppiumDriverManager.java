@@ -1,12 +1,13 @@
 package drivers;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class AppiumDriverManager {
 
     private static final AppiumDriverManager INSTANCE = new AppiumDriverManager();
 
-    private static ThreadLocal<Driver> driver = new ThreadLocal<>();
+    private static ThreadLocal<MobileDriver> driver = new ThreadLocal<>();
 
     private AppiumDriverManager() {
     }
@@ -15,7 +16,7 @@ public class AppiumDriverManager {
         return INSTANCE;
     }
 
-    public static AppiumDriver getDriver() {
+    public static AppiumDriver<MobileElement> getDriver() {
         return driver.get().getDriver();
     }
 

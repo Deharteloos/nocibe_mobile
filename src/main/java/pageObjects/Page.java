@@ -3,6 +3,7 @@ package pageObjects;
 import config.ConfigPropertiesReader;
 import config.Properties;
 import config.SystemPropertiesReader;
+import drivers.MobileDriver;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidTouchAction;
@@ -18,7 +19,7 @@ import java.time.Duration;
 
 public class Page {
 
-    protected AppiumDriver driver;
+    protected AppiumDriver<MobileElement> driver;
     protected AndroidTouchAction actions;
 
     protected WebDriverWait shortWait;

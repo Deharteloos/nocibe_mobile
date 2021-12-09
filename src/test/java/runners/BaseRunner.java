@@ -1,8 +1,11 @@
+package runners;
+
 import config.Properties;
 import drivers.AppiumDriverManager;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.*;
 
-public class TestRunner {
+public class BaseRunner extends AbstractTestNGCucumberTests {
 
     @Parameters({"platform"})
     @BeforeClass
