@@ -1,6 +1,21 @@
 # Intellij
 .idea/
 *.iml
+*.ipr
+*.iws
 
-# Project directories
+# Project files
+config/application.properties
+
 target/
+Thumbs.db
+*.DS_Store
+
+# Eclipse project files
+.classpath
+.project
+
+# Package Files #
+*.jar
+*.war
+*.ear
