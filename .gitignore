@@ -5,9 +5,10 @@
 *.iws
 
 # Project files
-config/application.properties
+config/config.properties
 
 target/
+apks/
 Thumbs.db
 *.DS_Store
 
