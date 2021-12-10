@@ -1,4 +1,4 @@
-package config;
+package enums;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

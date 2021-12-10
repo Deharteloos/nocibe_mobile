@@ -2,7 +2,6 @@ package pageObjects;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import pageObjects.Page;
 
 public class CreateTaskPage extends Page {
 
@@ -20,12 +19,12 @@ public class CreateTaskPage extends Page {
 
     public void enterTaskName(String taskName) {
         clear(taskNameTxt);
-        sendText(taskNameTxt, taskName);
+        set(taskNameTxt, taskName);
     }
 
     public void enterTaskDesc(String descText) {
         clear(taskDescTxt);
-        sendText(taskDescTxt, descText);
+        set(taskDescTxt, descText);
     }
 
     public void clickSaveBtn() {

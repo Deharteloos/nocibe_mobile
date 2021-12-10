@@ -1,5 +1,7 @@
 package config;
 
+import enums.Env;
+
 public enum SystemPropertiesReader {
 
     INSTANCE;
