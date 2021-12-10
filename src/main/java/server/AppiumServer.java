@@ -4,9 +4,12 @@ import config.Properties;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AppiumServer {
 
+    private static final Logger LOG = LogManager.getLogger(AppiumServer.class);
     private static AppiumDriverLocalService localService;
 
     public static void start() {
@@ -19,15 +22,21 @@ public class AppiumServer {
 
         localService = AppiumDriverLocalService.buildService(serviceBuilder);
         localService.start();
-        System.out.println("- - - - - -  Starting Appium Server - - - - - -");
+        LOG.info("===============================================");
+        LOG.info("- - - - - -  Starting Appium Server - - - - - -");
+        LOG.info("===============================================");
     }
 
     public static void stop() {
         try {
             localService.stop();
-            System.out.println("- - - - - -  Appium Server has been stopped - - - - - -");
+            LOG.info("=======================================================");
+            LOG.info("- - - - - -  Appium Server has been stopped - - - - - -");
+            LOG.info("=======================================================");
         } catch (Exception e) {
-            System.out.println("- - - - - -  Stopping Appium Server has failed - - - - - -");
+            LOG.warn("==========================================================");
+            LOG.warn("- - - - - -  Stopping Appium Server has failed - - - - - -");
+            LOG.warn("==========================================================");
         }
     }
 

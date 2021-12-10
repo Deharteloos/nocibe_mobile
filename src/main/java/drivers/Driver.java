@@ -5,12 +5,16 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 public interface Driver {
+
+    Logger LOG = LogManager.getLogger(Driver.class);
 
     AppiumDriver getDriver();
 
@@ -55,7 +59,7 @@ public interface Driver {
         try {
             return new URL(url);
         } catch (MalformedURLException e) {
-            System.out.println("The URL of Appium Server is invalid: " + url);
+            LOG.error("The URL of Appium Server is invalid: {}", url);
             throw new RuntimeException(e);
         }
     }

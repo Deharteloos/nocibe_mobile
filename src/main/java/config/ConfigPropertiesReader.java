@@ -1,7 +1,9 @@
 package config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -9,6 +11,8 @@ import java.util.Properties;
 public enum ConfigPropertiesReader {
 
     INSTANCE;
+
+    private static final Logger LOG = LogManager.getLogger(ConfigPropertiesReader.class);
 
     private static final String PROPERTIES_FILENAME = "config.properties";
     private static final String PROPERTIES_LOCATION = "config/" + PROPERTIES_FILENAME;
@@ -28,6 +32,7 @@ public enum ConfigPropertiesReader {
     private String readProperty(String key) {
         String property = properties.getProperty(key);
         if(property == null || property.isEmpty()) {
+            //TODO Verify why the logger is not working here
             System.out.println(key+ "value is missing in config.properties");
         }
         return property;

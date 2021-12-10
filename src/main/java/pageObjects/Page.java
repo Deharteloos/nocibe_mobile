@@ -10,6 +10,8 @@ import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,6 +20,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class Page {
+
+    private static final Logger LOG = LogManager.getLogger(Page.class);
 
     protected AppiumDriver<MobileElement> driver;
     protected AndroidTouchAction actions;
