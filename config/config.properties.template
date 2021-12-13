@@ -9,7 +9,7 @@ appiumServerPort=4723
 # General Desired Capabilities
 #
 # The absolute local path or remote http URL to the application (.apk, .apks, .ipa, .app or .zip)
-app=C:\\...\\appium-testng-cucumber-framework\\apks\\com.carrefour.fid.android_2021-12-08.apk
+app=C:\\...\\appium-testng-cucumber-framework\\apks\\ToDo_v1.24_apkpure.com.apk
 
 #
 # Android Desired Capabilities
