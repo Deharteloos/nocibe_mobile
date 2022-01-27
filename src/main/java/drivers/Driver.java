@@ -25,6 +25,7 @@ public interface Driver {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Properties.SYSTEM_PROPERTIES_READER.platformName);
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, Properties.SYSTEM_PROPERTIES_READER.platformVersion);
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, Properties.SYSTEM_PROPERTIES_READER.deviceName);
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, Properties.SYSTEM_PROPERTIES_READER.automationName);
         if(Properties.SYSTEM_PROPERTIES_READER.onBrowser) {
             capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
         } else {
