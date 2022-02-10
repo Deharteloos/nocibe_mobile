@@ -97,7 +97,7 @@ These instructions will help you set up the project locally and proceed with som
 
 * Clone the repo
    ```sh
-   git clone https://github.com/Deharteloos/appium-testng-cucumber-framework.git
+   git clone https://github.com/Deharteloos/nocibe_mobile.git
    ```
 * Rename the file `config.properties.template` to `config.properties` and update the property `app` according to the location of the app you want to test. Or add the necessary desired capabilities.
 
@@ -151,16 +151,16 @@ mvn test -Dcucumber.filter.tags="@smoke and @manual"
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Deharteloos/appium-testng-cucumber-framework.svg?style=for-the-badge
-[contributors-url]: https://github.com/Deharteloos/appium-testng-cucumber-framework/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Deharteloos/appium-testng-cucumber-framework.svg?style=for-the-badge
-[forks-url]: https://github.com/Deharteloos/appium-testng-cucumber-framework/network/members
-[stars-shield]: https://img.shields.io/github/stars/Deharteloos/appium-testng-cucumber-framework.svg?style=for-the-badge
-[stars-url]: https://github.com/Deharteloos/appium-testng-cucumber-framework/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Deharteloos/appium-testng-cucumber-framework.svg?style=for-the-badge
-[issues-url]: https://github.com/Deharteloos/appium-testng-cucumber-framework/issues
-[license-shield]: https://img.shields.io/github/license/Deharteloos/appium-testng-cucumber-framework.svg?style=for-the-badge
-[license-url]: https://github.com/Deharteloos/appium-testng-cucumber-framework/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Deharteloos/nocibe_mobile.svg?style=for-the-badge
+[contributors-url]: https://github.com/Deharteloos/nocibe_mobile/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Deharteloos/nocibe_mobile.svg?style=for-the-badge
+[forks-url]: https://github.com/Deharteloos/nocibe_mobile/network/members
+[stars-shield]: https://img.shields.io/github/stars/Deharteloos/nocibe_mobile.svg?style=for-the-badge
+[stars-url]: https://github.com/Deharteloos/nocibe_mobile/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Deharteloos/nocibe_mobile.svg?style=for-the-badge
+[issues-url]: https://github.com/Deharteloos/nocibe_mobile/issues
+[license-shield]: https://img.shields.io/github/license/Deharteloos/nocibe_mobile.svg?style=for-the-badge
+[license-url]: https://github.com/Deharteloos/nocibe_mobile/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png

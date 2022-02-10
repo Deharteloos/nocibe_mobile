@@ -1,5 +1,6 @@
 package pageObjects;
 
+import com.google.common.collect.ImmutableMap;
 import config.ConfigPropertiesReader;
 import config.Properties;
 import config.SystemPropertiesReader;
@@ -9,6 +10,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +24,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.Normalizer;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
@@ -61,6 +67,9 @@ public class Page {
         systemPropertiesReader = Properties.SYSTEM_PROPERTIES_READER;
         configPropertiesReader = Properties.CONFIG_PROPERTIES_READER;
     }
+
+    @AndroidFindBy(id = "com.pictime.nocibe:id/titleTextView")
+    private MobileElement viewTitle;
 
     /**
      * Wait until the condition in the function is satisfied
@@ -120,7 +129,7 @@ public class Page {
     protected void set(MobileElement element, String text) {
         this.clear(element);
         element.sendKeys(text);
-        this.wait.until(driver -> element.getText().equalsIgnoreCase(text));
+        //this.wait.until(driver -> element.getText().equalsIgnoreCase(text));
     }
 
     protected void click(MobileElement element) {
@@ -237,21 +246,21 @@ public class Page {
             case UP:
                 toY = wPosition.y;
                 fromY = wPosition.y + (int) (((double) wsize.height) * ((double) percOfScroll / 100)) - 2;
-                fromX = toX = (wPosition.x + wsize.width) / 2;
+                fromX = toX = wPosition.x + wsize.width / 2;
                 break;
             case DOWN:
                 fromY = wPosition.y;
                 toY = wPosition.y + (int) (((double) wsize.height) * ((double) percOfScroll / 100)) - 2;
-                fromX = toX = (wPosition.x + wsize.width) / 2;
+                fromX = toX = wPosition.x + wsize.width / 2;
                 break;
             case RIGHT:
                 fromX = wPosition.x;
-                fromY = toY = (wPosition.y + wsize.height) / 2;
+                fromY = toY = wPosition.y + wsize.height / 2;
                 toX = wPosition.x + (int) (((double) wsize.width) * ((double) percOfScroll / 100)) - 2;
                 break;
             case LEFT:
                 toX = wPosition.x;
-                fromY = toY = (wPosition.y + wsize.height) / 2;
+                fromY = toY = wPosition.y + wsize.height / 2;
                 fromX = wPosition.x + (int) (((double) wsize.width) * ((double) percOfScroll / 100)) - 2;
         }
         do {
@@ -280,6 +289,92 @@ public class Page {
     protected String getAttribute(MobileElement element, String attribute) {
         waitForVisibility(element);
         return element.getAttribute(attribute);
+    }
+
+    protected boolean isActiveView(String viewTitleText) {
+        if(shortWaitUntil(visibilityOf(viewTitle)))
+            return viewTitle.getAttribute("text").equals(viewTitleText);
+        else {
+            LOG.warn("The view title was not visible");
+            return false;
+        }
+    }
+
+    protected void keyboardEnter() {
+        // Java
+        driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "done"));
+    }
+
+    protected void pickADate(String year, String month, String day) {
+        Map<String, Integer> monthStr2Numb = buildMonthMap();
+        click(driver.findElementById("android:id/date_picker_header_year"));
+        String firstYearInList = driver.findElementsByXPath("//*[@resource-id='android:id/date_picker_year_picker']/child::node()")
+                .get(0)
+                .getAttribute("text");
+        int diff = Integer.parseInt(firstYearInList) - Integer.parseInt(year);
+        int times = diff % 7 == 0 ? diff / 7 : diff / 7 + 1;
+        swipeScrollableElement(driver.findElementById("android:id/date_picker_year_picker"), Direction.DOWN, 100, times);
+        click(driver.findElementsByXPath("//*[@resource-id='android:id/date_picker_year_picker']/child::node()")
+                .stream()
+                .filter(el -> el.getAttribute("text").equals(year))
+                .collect(Collectors.toList())
+                .get(0));
+        String currentMonth = driver.findElementsByXPath("//*[@resource-id='android:id/month_view']/child::node()")
+                .get(0)
+                .getAttribute("content-desc")
+                .replaceAll("[0-9 ]", "");
+        if(currentMonth.equalsIgnoreCase(month)) {
+            click(driver.findElementsByXPath("//*[@resource-id='android:id/month_view']/child::node()")
+                    .get(Integer.parseInt(day)-1));
+            return;
+        }
+        times = monthStr2Numb.get(removeAccent(month)) - monthStr2Numb.get(removeAccent(currentMonth));
+        if(times > 0) {
+            for(int i = 0; i < times; i++)
+                click(driver.findElementById("android:id/next"));
+            click(driver.findElementsByXPath("//*[@resource-id='android:id/month_view']/child::node()")
+                    .get(Integer.parseInt(day)-1));
+        }
+        if(times < 0) {
+            for(int i = 0; i < -(times); i++)
+                click(driver.findElementById("android:id/prev"));
+            click(driver.findElementsByXPath("//*[@resource-id='android:id/month_view']/child::node()")
+                    .get(Integer.parseInt(day)-1));
+        }
+        click(driver.findElementById("android:id/button1"));
+    }
+
+    private String removeAccent(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase();
+    }
+
+    private Map<String, Integer> buildMonthMap() {
+        Map<String, Integer> monthStr2Numb = new HashMap<>();
+        monthStr2Numb.put("janvier", 1);
+        monthStr2Numb.put("january", 1);
+        monthStr2Numb.put("fevrier", 2);
+        monthStr2Numb.put("february", 2);
+        monthStr2Numb.put("mars", 3);
+        monthStr2Numb.put("march", 3);
+        monthStr2Numb.put("avril", 4);
+        monthStr2Numb.put("april", 4);
+        monthStr2Numb.put("mai", 5);
+        monthStr2Numb.put("may", 5);
+        monthStr2Numb.put("juin", 6);
+        monthStr2Numb.put("june", 6);
+        monthStr2Numb.put("juillet", 7);
+        monthStr2Numb.put("july", 7);
+        monthStr2Numb.put("aout", 8);
+        monthStr2Numb.put("august", 8);
+        monthStr2Numb.put("septembre", 9);
+        monthStr2Numb.put("september", 9);
+        monthStr2Numb.put("octobre", 10);
+        monthStr2Numb.put("october", 10);
+        monthStr2Numb.put("novembre", 11);
+        monthStr2Numb.put("november", 11);
+        monthStr2Numb.put("decembre", 12);
+        monthStr2Numb.put("december", 12);
+        return monthStr2Numb;
     }
 
 }
