@@ -35,13 +35,13 @@ public class NewAccountSteps {
     @When("User fills out the form")
     public void userFillsOutTheForm(DataTable dataTable) {
         //Given that we only have one row in the table, we select directy that row
-        Map<String, String> userData = dataTable.asMaps(String.class, String.class).get(0);
-        String civility = userData.get("civility");
-        String firstname = userData.get("firstname");
-        String surname = userData.get("surname");
-        String email = userData.get("email");
-        String password = userData.get("password");
-        String choice = userData.get("choice");
+        Map<Object, Object> userData = dataTable.asMaps(String.class, String.class).get(0);
+        String civility = (String) userData.get("civility");
+        String firstname = (String) userData.get("firstname");
+        String surname = (String) userData.get("surname");
+        String email = (String) userData.get("email");
+        String password = (String) userData.get("password");
+        String choice = (String) userData.get("choice");
         newAccountPage.completeFirstStep(civility, firstname, surname, email, password, choice);
     }
 

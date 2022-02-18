@@ -7,7 +7,8 @@ import io.cucumber.testng.CucumberOptions;
         plugin = {
                 "pretty",
                 "html:target/reports/htmlreport.html",
-                "json:target/reports/jsonreports/index.json"
+                "json:target/reports/jsonreports/index.json",
+                "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"
         },
         features = {"src/test/resources/features"},
         glue = {"steps", "pageObjects"}
